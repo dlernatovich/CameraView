@@ -1,7 +1,10 @@
 package com.google.android.cameraview;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -9,6 +12,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -185,7 +189,6 @@ public class GCameraView extends FrameLayout implements View.OnClickListener {
         } catch (Exception ex) {
             Log.e(GCameraView.class.getSimpleName(), ex.toString());
         }
-        this.onCreateView();
     }
 
     /**
@@ -223,6 +226,7 @@ public class GCameraView extends FrameLayout implements View.OnClickListener {
      */
     protected void onCreateView() {
         if (this.cameraView != null) {
+            this.cameraView.removeCallback(getCameraCallback());
             this.cameraView.addCallback(getCameraCallback());
         }
         if (this.imageFlash != null) {
@@ -241,6 +245,23 @@ public class GCameraView extends FrameLayout implements View.OnClickListener {
      */
     public final void start() {
         if (this.cameraView != null) {
+            this.onCreateView();
+            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions((Activity) getContext(), new String[]{Manifest
+                        .permission.CAMERA}, 0b1010);
+                return;
+            }
+            if (ActivityCompat.checkSelfPermission(getContext(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions((Activity) getContext(), new String[]{Manifest
+                        .permission.WRITE_EXTERNAL_STORAGE}, 0b1010);
+                return;
+            }
+            if (this.cameraView.isCameraOpened()) {
+                this.cameraView.stop();
+            }
             this.cameraView.start();
         }
     }
