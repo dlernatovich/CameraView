@@ -55,9 +55,9 @@ public class GCameraView extends FrameLayout implements View.OnClickListener {
      * Enum with the flash value
      */
     public enum Flash {
-        OFF(0, R.drawable.ic_flash_off_white_24dp),
-        ON(1, R.drawable.ic_flash_on_white_24dp),
-        AUTO(3, R.drawable.ic_flash_auto_white_24dp);
+        OFF(0, R.drawable.ic_gflash_off),
+        ON(1, R.drawable.ic_gflash_on),
+        AUTO(3, R.drawable.ic_gflash_auto);
         /**
          * {@link Integer} value of the {@link Facing}
          */
@@ -111,6 +111,42 @@ public class GCameraView extends FrameLayout implements View.OnClickListener {
          */
         void cameraViewPictureTaken(@NonNull GCameraView cameraView,
                                     @NonNull Uri uri);
+
+        /**
+         * Method which provide the getting of the camera icon
+         *
+         * @return {@link Integer} value of the camera icon
+         */
+        @DrawableRes
+        @Nullable
+        Integer cameraViewIconCamera();
+
+        /**
+         * Method which provide the getting of the flash auto icon
+         *
+         * @return {@link Integer} value of the camera icon
+         */
+        @DrawableRes
+        @Nullable
+        Integer cameraViewIconFlashAuto();
+
+        /**
+         * Method which provide the getting of the flash on icon
+         *
+         * @return {@link Integer} value of the camera icon
+         */
+        @DrawableRes
+        @Nullable
+        Integer cameraViewIconFlashOn();
+
+        /**
+         * Method which provide the getting of the flash off icon
+         *
+         * @return {@link Integer} value of the camera icon
+         */
+        @DrawableRes
+        @Nullable
+        Integer cameraViewIconFlashOff();
 
     }
 
@@ -321,8 +357,21 @@ public class GCameraView extends FrameLayout implements View.OnClickListener {
             if (callback != null) {
                 callback.cameraViewFlashChanged(this, getFlash());
             }
+            Integer flashIcon = null;
+            if (this.callback != null) {
+                if (flash == Flash.AUTO) {
+                    flashIcon = this.callback.cameraViewIconFlashAuto();
+                } else if (flash == Flash.ON) {
+                    flashIcon = this.callback.cameraViewIconFlashOn();
+                } else if (flash == Flash.OFF) {
+                    flashIcon = this.callback.cameraViewIconFlashOff();
+                }
+            }
+            if (flashIcon == null) {
+                flashIcon = flash.drawable;
+            }
             if (this.imageFlash != null) {
-                this.imageFlash.setImageResource(flash.drawable);
+                this.imageFlash.setImageResource(flashIcon);
             }
         }
     }
@@ -352,11 +401,11 @@ public class GCameraView extends FrameLayout implements View.OnClickListener {
     public final void switchFlash() {
         Flash flash = getFlash();
         if (flash == Flash.OFF) {
-            flash = Flash.ON;
-        } else if (flash == Flash.ON) {
             flash = Flash.AUTO;
-        } else if (flash == Flash.AUTO) {
+        } else if (flash == Flash.ON) {
             flash = Flash.OFF;
+        } else if (flash == Flash.AUTO) {
+            flash = Flash.ON;
         }
         setFlash(flash);
     }
@@ -423,6 +472,25 @@ public class GCameraView extends FrameLayout implements View.OnClickListener {
      */
     protected void onPictureProcessing(byte[] data) {
         new SaveFileTask(data, this.callback, this).execute();
+    }
+
+    /**
+     * Method which provide the configuring of the {@link GCameraView} with callback
+     *
+     * @param callback instance of the {@link OnCameraCallback}
+     */
+    public final void configure(@Nullable OnCameraCallback callback) {
+        this.callback = callback;
+        // Update camera icon
+        if ((this.imageCamera != null)
+                && (this.callback != null)
+                && (this.callback.cameraViewIconCamera() != null)) {
+            this.imageCamera.setImageResource(this.callback.cameraViewIconCamera());
+        }
+        // Update flash icons
+        if (this.callback != null) {
+            this.setFlash(this.getFlash());
+        }
     }
 
     /**

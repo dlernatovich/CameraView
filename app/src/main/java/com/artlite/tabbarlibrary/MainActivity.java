@@ -2,7 +2,9 @@ package com.artlite.tabbarlibrary;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
@@ -12,7 +14,7 @@ import com.artlite.bslibrary.ui.activity.BSActivity;
 import com.google.android.cameraview.CameraView;
 import com.google.android.cameraview.GCameraView;
 
-public class MainActivity extends BSActivity {
+public class MainActivity extends BSActivity implements GCameraView.OnCameraCallback {
 
     /**
      * Instance of the {@link CameraView}
@@ -49,6 +51,7 @@ public class MainActivity extends BSActivity {
      */
     @Override
     protected void onActivityPostCreation(@Nullable Bundle bundle) {
+        this.cameraView.configure(this);
     }
 
     /**
@@ -91,5 +94,85 @@ public class MainActivity extends BSActivity {
      * @param data array of the {@link Byte} data
      */
     protected void saveImage(byte[] data) {
+    }
+
+    /**
+     * Method which provide the action when the flash the changed
+     *
+     * @param cameraView instance of the {@link GCameraView}
+     * @param flash      instance of the {@link GCameraView.Flash}
+     */
+    @Override
+    public void cameraViewFlashChanged(@NonNull GCameraView cameraView,
+                                       @NonNull GCameraView.Flash flash) {
+
+    }
+
+    /**
+     * Method which provide the action when the flash the changed
+     *
+     * @param cameraView instance of the {@link GCameraView}
+     * @param facing     instance of the {@link GCameraView.Facing}
+     */
+    @Override
+    public void cameraViewFacingChanged(@NonNull GCameraView cameraView,
+                                        @NonNull GCameraView.Facing facing) {
+
+    }
+
+    /**
+     * Method which provide the action when the flash the changed
+     *
+     * @param cameraView instance of the {@link GCameraView}
+     * @param uri        instance of the {@link Uri}
+     */
+    @Override
+    public void cameraViewPictureTaken(@NonNull GCameraView cameraView,
+                                       @NonNull Uri uri) {
+
+    }
+
+    /**
+     * Method which provide the getting of the camera icon
+     *
+     * @return {@link Integer} value of the camera icon
+     */
+    @Nullable
+    @Override
+    public Integer cameraViewIconCamera() {
+        return R.drawable.common_full_open_on_phone;
+    }
+
+    /**
+     * Method which provide the getting of the flash auto icon
+     *
+     * @return {@link Integer} value of the camera icon
+     */
+    @Nullable
+    @Override
+    public Integer cameraViewIconFlashAuto() {
+        return android.R.drawable.ic_btn_speak_now;
+    }
+
+    /**
+     * Method which provide the getting of the flash on icon
+     *
+     * @return {@link Integer} value of the camera icon
+     */
+    @Nullable
+    @Override
+    public Integer cameraViewIconFlashOn() {
+        return android.R.drawable.ic_delete;
+    }
+
+    /**
+     * Method which provide the getting of the flash off icon
+     *
+     * @return {@link Integer} value of the camera icon
+     */
+    @Nullable
+    @Override
+    public Integer cameraViewIconFlashOff() {
+        return android.R.drawable.ic_dialog_alert;
     }
 }

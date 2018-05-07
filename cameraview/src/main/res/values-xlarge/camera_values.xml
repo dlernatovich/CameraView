@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dimen_camera_70">140dp</dimen>
+    <dimen name="dimen_camera_65">130dp</dimen>
+    <dimen name="dimen_camera_50">100dp</dimen>
+    <dimen name="dimen_camera_10">20dp</dimen>
+
+
+</resources>
