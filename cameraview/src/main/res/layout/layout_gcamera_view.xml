@@ -16,7 +16,6 @@
         android:background="@android:color/black"
         android:keepScreenOn="true"
         app:autoFocus="true"
-        app:facing="back"
         app:flash="auto" />
 
     <ImageView

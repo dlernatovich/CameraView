@@ -52,6 +52,8 @@ public class MainActivity extends BSActivity implements GCameraView.OnCameraCall
     @Override
     protected void onActivityPostCreation(@Nullable Bundle bundle) {
         this.cameraView.configure(this);
+        this.cameraView.setFacing(GCameraView.Facing.FRONT);
+        this.cameraView.setFlash(GCameraView.Flash.ON);
     }
 
     /**
