@@ -142,7 +142,7 @@ public class MainActivity extends BSActivity implements GCameraView.OnCameraCall
     @Nullable
     @Override
     public Integer cameraViewIconCamera() {
-        return R.drawable.common_full_open_on_phone;
+        return null;
     }
 
     /**
@@ -153,7 +153,7 @@ public class MainActivity extends BSActivity implements GCameraView.OnCameraCall
     @Nullable
     @Override
     public Integer cameraViewIconFlashAuto() {
-        return android.R.drawable.ic_btn_speak_now;
+        return null;
     }
 
     /**
@@ -164,7 +164,7 @@ public class MainActivity extends BSActivity implements GCameraView.OnCameraCall
     @Nullable
     @Override
     public Integer cameraViewIconFlashOn() {
-        return android.R.drawable.ic_delete;
+        return null;
     }
 
     /**
@@ -175,6 +175,6 @@ public class MainActivity extends BSActivity implements GCameraView.OnCameraCall
     @Nullable
     @Override
     public Integer cameraViewIconFlashOff() {
-        return android.R.drawable.ic_dialog_alert;
+        return null;
     }
 }
