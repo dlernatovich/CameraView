@@ -222,6 +222,7 @@ public class GCameraView extends FrameLayout implements View.OnClickListener {
         this.inflateView(context, getLayoutId());
         try {
             this.onLinkInterface();
+            this.onCreateView();
         } catch (Exception ex) {
             Log.e(GCameraView.class.getSimpleName(), ex.toString());
         }
@@ -281,7 +282,6 @@ public class GCameraView extends FrameLayout implements View.OnClickListener {
      */
     public final void start() {
         if (this.cameraView != null) {
-            this.onCreateView();
             if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)
                     != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions((Activity) getContext(), new String[]{Manifest
@@ -325,6 +325,20 @@ public class GCameraView extends FrameLayout implements View.OnClickListener {
                 callback.cameraViewFacingChanged(this, getFacing());
             }
         }
+    }
+
+    /**
+     * Method which provide the switch facing
+     */
+    public final void switchFacing() {
+        if (this.cameraView != null) {
+            if (this.getFacing() == Facing.BACK) {
+                this.setFacing(Facing.FRONT);
+            } else {
+                this.setFacing(Facing.BACK);
+            }
+        }
+
     }
 
     /**
