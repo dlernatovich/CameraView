@@ -55,9 +55,9 @@ public class GCameraView extends FrameLayout implements View.OnClickListener {
      * Enum with the flash value
      */
     public enum Flash {
-        OFF(0, R.drawable.ic_gflash_off),
-        ON(1, R.drawable.ic_gflash_on),
-        AUTO(3, R.drawable.ic_gflash_auto);
+        OFF(Constants.FLASH_OFF, R.drawable.ic_gflash_off),
+        ON(Constants.FLASH_ON, R.drawable.ic_gflash_on),
+        AUTO(Constants.FLASH_AUTO, R.drawable.ic_gflash_auto);
         /**
          * {@link Integer} value of the {@link Facing}
          */
