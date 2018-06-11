@@ -1,26 +1,25 @@
 package com.artlite.tabbarlibrary;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.view.View;
 
 import com.artlite.bslibrary.annotations.FindViewBy;
+import com.artlite.bslibrary.managers.BSTransferManager;
 import com.artlite.bslibrary.ui.activity.BSActivity;
 import com.google.android.cameraview.CameraView;
 import com.google.android.cameraview.GCameraView;
+import com.google.android.cameraview.GCameraViewV1;
 
-public class MainActivity extends BSActivity implements GCameraView.OnCameraCallback {
+public class MainActivity extends BSActivity implements GCameraViewV1.OnCameraCallback {
 
     /**
      * Instance of the {@link CameraView}
      */
     @FindViewBy(id = R.id.camera_view)
-    GCameraView cameraView;
+    GCameraViewV1 cameraView;
 
     /**
      * Method which provide the getting of the layout ID for the current Activity
@@ -52,8 +51,8 @@ public class MainActivity extends BSActivity implements GCameraView.OnCameraCall
     @Override
     protected void onActivityPostCreation(@Nullable Bundle bundle) {
         this.cameraView.configure(this);
-        this.cameraView.setFacing(GCameraView.Facing.BACK);
-        this.cameraView.setFlash(GCameraView.Flash.ON);
+        this.cameraView.setFacing(GCameraViewV1.Facing.BACK);
+        this.cameraView.setFlash(GCameraViewV1.Flash.AUTO);
     }
 
     /**
@@ -105,8 +104,8 @@ public class MainActivity extends BSActivity implements GCameraView.OnCameraCall
      * @param flash      instance of the {@link GCameraView.Flash}
      */
     @Override
-    public void cameraViewFlashChanged(@NonNull GCameraView cameraView,
-                                       @NonNull GCameraView.Flash flash) {
+    public void cameraViewFlashChanged(@NonNull GCameraViewV1 cameraView,
+                                       @NonNull GCameraViewV1.Flash flash) {
 
     }
 
@@ -117,8 +116,8 @@ public class MainActivity extends BSActivity implements GCameraView.OnCameraCall
      * @param facing     instance of the {@link GCameraView.Facing}
      */
     @Override
-    public void cameraViewFacingChanged(@NonNull GCameraView cameraView,
-                                        @NonNull GCameraView.Facing facing) {
+    public void cameraViewFacingChanged(@NonNull GCameraViewV1 cameraView,
+                                        @NonNull GCameraViewV1.Facing facing) {
 
     }
 
@@ -129,9 +128,10 @@ public class MainActivity extends BSActivity implements GCameraView.OnCameraCall
      * @param uri        instance of the {@link Uri}
      */
     @Override
-    public void cameraViewPictureTaken(@NonNull GCameraView cameraView,
+    public void cameraViewPictureTaken(@NonNull GCameraViewV1 cameraView,
                                        @NonNull Uri uri) {
-
+        BSTransferManager.put(ImageActivity.class, uri);
+        this.startActivity(ImageActivity.class);
     }
 
     /**

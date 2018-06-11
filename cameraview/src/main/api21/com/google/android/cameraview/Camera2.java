@@ -65,6 +65,32 @@ class Camera2 extends CameraViewImpl {
 
     private final CameraManager mCameraManager;
 
+    private String mCameraId;
+
+    private CameraCharacteristics mCameraCharacteristics;
+
+    protected CameraDevice mCamera;
+
+    CameraCaptureSession mCaptureSession;
+
+    CaptureRequest.Builder mPreviewRequestBuilder;
+
+    private ImageReader mImageReader;
+
+    private final SizeMap mPreviewSizes = new SizeMap();
+
+    private final SizeMap mPictureSizes = new SizeMap();
+
+    private int mFacing;
+
+    private AspectRatio mAspectRatio = Constants.DEFAULT_ASPECT_RATIO;
+
+    private boolean mAutoFocus;
+
+    private int mFlash;
+
+    private int mDisplayOrientation;
+
     private final CameraDevice.StateCallback mCameraDeviceCallback
             = new CameraDevice.StateCallback() {
 
@@ -168,33 +194,6 @@ class Camera2 extends CameraViewImpl {
         }
 
     };
-
-
-    private String mCameraId;
-
-    private CameraCharacteristics mCameraCharacteristics;
-
-    CameraDevice mCamera;
-
-    CameraCaptureSession mCaptureSession;
-
-    CaptureRequest.Builder mPreviewRequestBuilder;
-
-    private ImageReader mImageReader;
-
-    private final SizeMap mPreviewSizes = new SizeMap();
-
-    private final SizeMap mPictureSizes = new SizeMap();
-
-    private int mFacing;
-
-    private AspectRatio mAspectRatio = Constants.DEFAULT_ASPECT_RATIO;
-
-    private boolean mAutoFocus;
-
-    private int mFlash;
-
-    private int mDisplayOrientation;
 
     Camera2(Callback callback, PreviewImpl preview, Context context) {
         super(callback, preview);

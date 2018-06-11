@@ -36,7 +36,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.Set;
 
-public class CameraView extends FrameLayout {
+public class CameraViewV1 extends FrameLayout {
 
     /**
      * The camera device faces the opposite direction as the device's screen.
@@ -96,16 +96,16 @@ public class CameraView extends FrameLayout {
 
     private final DisplayOrientationDetector mDisplayOrientationDetector;
 
-    public CameraView(Context context) {
+    public CameraViewV1(Context context) {
         this(context, null);
     }
 
-    public CameraView(Context context, AttributeSet attrs) {
+    public CameraViewV1(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
     @SuppressWarnings("WrongConstant")
-    public CameraView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CameraViewV1(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         if (isInEditMode()) {
             mCallbacks = null;
@@ -115,13 +115,7 @@ public class CameraView extends FrameLayout {
         // Internal setup
         final PreviewImpl preview = createPreviewImpl(context);
         mCallbacks = new CallbackBridge();
-        if (Build.VERSION.SDK_INT < 21) {
-            mImpl = new Camera1(mCallbacks, preview);
-        } else if (Build.VERSION.SDK_INT < 23) {
-            mImpl = new Camera2(mCallbacks, preview, context);
-        } else {
-            mImpl = new Camera2Api23(mCallbacks, preview, context);
-        }
+        mImpl = new Camera1(mCallbacks, preview);
         // Attributes
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CameraView, defStyleAttr,
                 R.style.Widget_CameraView);
@@ -419,7 +413,7 @@ public class CameraView extends FrameLayout {
 
     /**
      * Take a picture. The result will be returned to
-     * {@link Callback#onPictureTaken(CameraView, byte[])}.
+     * {@link Callback#onPictureTaken(CameraViewV1, byte[])}.
      */
     public void takePicture() {
         mImpl.takePicture();
@@ -449,21 +443,21 @@ public class CameraView extends FrameLayout {
                 requestLayout();
             }
             for (Callback callback : mCallbacks) {
-                callback.onCameraOpened(CameraView.this);
+                callback.onCameraOpened(CameraViewV1.this);
             }
         }
 
         @Override
         public void onCameraClosed() {
             for (Callback callback : mCallbacks) {
-                callback.onCameraClosed(CameraView.this);
+                callback.onCameraClosed(CameraViewV1.this);
             }
         }
 
         @Override
         public void onPictureTaken(byte[] data) {
             for (Callback callback : mCallbacks) {
-                callback.onPictureTaken(CameraView.this, data);
+                callback.onPictureTaken(CameraViewV1.this, data);
             }
         }
 
@@ -524,7 +518,7 @@ public class CameraView extends FrameLayout {
     }
 
     /**
-     * Callback for monitoring events about {@link CameraView}.
+     * Callback for monitoring events about {@link CameraViewV1}.
      */
     @SuppressWarnings("UnusedParameters")
     public abstract static class Callback {
@@ -532,26 +526,26 @@ public class CameraView extends FrameLayout {
         /**
          * Called when camera is opened.
          *
-         * @param cameraView The associated {@link CameraView}.
+         * @param cameraView The associated {@link CameraViewV1}.
          */
-        public void onCameraOpened(CameraView cameraView) {
+        public void onCameraOpened(CameraViewV1 cameraView) {
         }
 
         /**
          * Called when camera is closed.
          *
-         * @param cameraView The associated {@link CameraView}.
+         * @param cameraView The associated {@link CameraViewV1}.
          */
-        public void onCameraClosed(CameraView cameraView) {
+        public void onCameraClosed(CameraViewV1 cameraView) {
         }
 
         /**
          * Called when a picture is taken.
          *
-         * @param cameraView The associated {@link CameraView}.
+         * @param cameraView The associated {@link CameraViewV1}.
          * @param data       JPEG data.
          */
-        public void onPictureTaken(CameraView cameraView, byte[] data) {
+        public void onPictureTaken(CameraViewV1 cameraView, byte[] data) {
         }
     }
 
