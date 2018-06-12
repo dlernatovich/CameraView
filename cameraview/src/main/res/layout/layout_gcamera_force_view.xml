@@ -8,7 +8,7 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
-    <com.google.android.cameraview.CameraViewV1
+    <com.artlite.cameraview.views.GCCameraImplementation
         android:id="@+id/camera"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

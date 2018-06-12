@@ -9,17 +9,15 @@ import android.view.View;
 import com.artlite.bslibrary.annotations.FindViewBy;
 import com.artlite.bslibrary.managers.BSTransferManager;
 import com.artlite.bslibrary.ui.activity.BSActivity;
-import com.google.android.cameraview.CameraView;
-import com.google.android.cameraview.GCameraView;
-import com.google.android.cameraview.GCameraViewV1;
+import com.artlite.cameraview.common.GCCameraView;
 
-public class MainActivity extends BSActivity implements GCameraViewV1.OnCameraCallback {
+public class MainActivity extends BSActivity implements GCCameraView.OnCameraCallback {
 
     /**
-     * Instance of the {@link CameraView}
+     * Instance of the {@link GCCameraView}
      */
     @FindViewBy(id = R.id.camera_view)
-    GCameraViewV1 cameraView;
+    private GCCameraView cameraView;
 
     /**
      * Method which provide the getting of the layout ID for the current Activity
@@ -51,8 +49,8 @@ public class MainActivity extends BSActivity implements GCameraViewV1.OnCameraCa
     @Override
     protected void onActivityPostCreation(@Nullable Bundle bundle) {
         this.cameraView.configure(this);
-        this.cameraView.setFacing(GCameraViewV1.Facing.BACK);
-        this.cameraView.setFlash(GCameraViewV1.Flash.AUTO);
+        this.cameraView.setFacing(GCCameraView.Facing.BACK);
+        this.cameraView.setFlash(GCCameraView.Flash.AUTO);
     }
 
     /**
@@ -90,45 +88,37 @@ public class MainActivity extends BSActivity implements GCameraViewV1.OnCameraCa
     }
 
     /**
-     * Method which provide the save image
-     *
-     * @param data array of the {@link Byte} data
-     */
-    protected void saveImage(byte[] data) {
-    }
-
-    /**
      * Method which provide the action when the flash the changed
      *
-     * @param cameraView instance of the {@link GCameraView}
-     * @param flash      instance of the {@link GCameraView.Flash}
+     * @param cameraView instance of the {@link GCCameraView}
+     * @param flash      instance of the {@link GCCameraView.Flash}
      */
     @Override
-    public void cameraViewFlashChanged(@NonNull GCameraViewV1 cameraView,
-                                       @NonNull GCameraViewV1.Flash flash) {
+    public void cameraViewFlashChanged(@NonNull GCCameraView cameraView,
+                                       @NonNull GCCameraView.Flash flash) {
 
     }
 
     /**
      * Method which provide the action when the flash the changed
      *
-     * @param cameraView instance of the {@link GCameraView}
-     * @param facing     instance of the {@link GCameraView.Facing}
+     * @param cameraView instance of the {@link GCCameraView}
+     * @param facing     instance of the {@link GCCameraView.Facing}
      */
     @Override
-    public void cameraViewFacingChanged(@NonNull GCameraViewV1 cameraView,
-                                        @NonNull GCameraViewV1.Facing facing) {
+    public void cameraViewFacingChanged(@NonNull GCCameraView cameraView,
+                                        @NonNull GCCameraView.Facing facing) {
 
     }
 
     /**
      * Method which provide the action when the flash the changed
      *
-     * @param cameraView instance of the {@link GCameraView}
+     * @param cameraView instance of the {@link GCCameraView}
      * @param uri        instance of the {@link Uri}
      */
     @Override
-    public void cameraViewPictureTaken(@NonNull GCameraViewV1 cameraView,
+    public void cameraViewPictureTaken(@NonNull GCCameraView cameraView,
                                        @NonNull Uri uri) {
         BSTransferManager.put(ImageActivity.class, uri);
         this.startActivity(ImageActivity.class);

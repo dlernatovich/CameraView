@@ -3,7 +3,7 @@ apply plugin: 'com.android.library'
 ext {
     PUBLISH_GROUP_ID = 'com.artlite'
     PUBLISH_ARTIFACT_ID = 'cameraview'
-    PUBLISH_VERSION = '1.2'
+    PUBLISH_VERSION = '1.3'
 }
 
 android {
@@ -30,14 +30,15 @@ android {
         abortOnError false
     }
 
-    sourceSets {
-        main.java.srcDirs += 'src/main/base'
-        main.java.srcDirs += 'src/main/custom'
-        main.java.srcDirs += 'src/main/api9'
-        main.java.srcDirs += 'src/main/api14'
-        main.java.srcDirs += 'src/main/api21'
-        main.java.srcDirs += 'src/main/api23'
-    }
+//    sourceSets {
+//        main.java.srcDirs += 'src/main/base'
+//        main.java.srcDirs += 'src/main/common'
+//        main.java.srcDirs += 'src/main/custom'
+//        main.java.srcDirs += 'src/main/api9'
+//        main.java.srcDirs += 'src/main/api14'
+//        main.java.srcDirs += 'src/main/api21'
+//        main.java.srcDirs += 'src/main/api23'
+//    }
 
 }
 
