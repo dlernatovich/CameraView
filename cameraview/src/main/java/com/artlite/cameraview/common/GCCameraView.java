@@ -257,9 +257,9 @@ public class GCCameraView extends FrameLayout implements View.OnClickListener {
      * Method which provide interface linking
      */
     protected void onLinkInterface() {
-        this.cameraView = findViewById(R.id.camera);
-        this.imageFlash = findViewById(R.id.image_flash);
-        this.imageCamera = findViewById(R.id.image_camera);
+        this.cameraView = (GCCameraImplementation) findViewById(R.id.camera);
+        this.imageFlash = (ImageView) findViewById(R.id.image_flash);
+        this.imageCamera = (ImageView) findViewById(R.id.image_camera);
     }
 
     /**
