@@ -10,6 +10,7 @@ import com.artlite.bslibrary.annotations.FindViewBy;
 import com.artlite.bslibrary.managers.BSTransferManager;
 import com.artlite.bslibrary.ui.activity.BSActivity;
 import com.artlite.cameraview.common.GCCameraView;
+import com.artlite.cameraview.models.GCAspectRatio;
 
 public class MainActivity extends BSActivity implements GCCameraView.OnCameraCallback {
 
@@ -51,6 +52,7 @@ public class MainActivity extends BSActivity implements GCCameraView.OnCameraCal
         this.cameraView.configure(this);
         this.cameraView.setFacing(GCCameraView.Facing.BACK);
         this.cameraView.setFlash(GCCameraView.Flash.AUTO);
+        this.cameraView.setAspectRatio(GCAspectRatio.of(16, 9));
     }
 
     /**

@@ -21,6 +21,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.artlite.cameraview.constants.GCConstants;
+import com.artlite.cameraview.models.GCAspectRatio;
 import com.artlite.cameraview.views.GCCameraImplementation;
 import com.google.android.cameraview.R;
 
@@ -33,6 +34,11 @@ import java.util.Date;
  * Class which provide the create of the View for the camera
  */
 public class GCCameraView extends FrameLayout implements View.OnClickListener {
+
+    /**
+     * {@link String} constants of the TAG
+     */
+    private static final String TAG = GCCameraView.class.getSimpleName();
 
     /**
      * Enum which provide the facing
@@ -508,6 +514,21 @@ public class GCCameraView extends FrameLayout implements View.OnClickListener {
         // Update flash icons
         if (this.callback != null) {
             this.setFlash(this.getFlash());
+        }
+    }
+
+    /**
+     * Sets the aspect ratio of camera.
+     *
+     * @param ratio The {@link GCAspectRatio} to be set.
+     */
+    public void setAspectRatio(@Nullable GCAspectRatio ratio) {
+        if ((this.cameraView != null) && (ratio != null)) {
+            try {
+                this.cameraView.setAspectRatio(ratio);
+            } catch (Exception ex) {
+                Log.e(TAG, "setAspectRatio: ", ex);
+            }
         }
     }
 
